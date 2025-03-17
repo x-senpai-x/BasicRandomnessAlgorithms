@@ -1,0 +1,11 @@
+[package]
+name = "basic-randomness-algorithms"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[[bin]]
+name = "rs_encoding"
+path = "rs_encoding/src/main.rs"
+
