@@ -1,6 +1,6 @@
 use rand::Rng;
 use crate::utils::is_prime;
-use std::fmt::Display;
+use std::{fmt::Display, u64};
 #[derive(Debug,Clone, Copy )]
 pub struct FiniteField{
     pub value : u64,
@@ -35,6 +35,17 @@ impl FiniteField {
     pub fn mul(&self, other: &FiniteField) -> FiniteField {
         let result = (self.value as u128) * (other.value as u128) % (self.modulus as u128);
         return FiniteField::new(result as u64, self.modulus);
+    }
+    pub fn bin_mul(&self,other: &u8)->FiniteField{
+        if *other==0{
+            return FiniteField::new(0, self.modulus);
+        }
+        else if *other==1{
+            return *self;
+        }
+        else {
+            return FiniteField::new(u64::MAX,self.modulus);
+        }
     }
     fn div(&self, other: &FiniteField) -> FiniteField {
         return FiniteField::new((self.value / other.value) % self.modulus, self.modulus);

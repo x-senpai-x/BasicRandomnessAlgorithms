@@ -9,3 +9,6 @@ edition = "2021"
 name = "rs_encoding"
 path = "rs_encoding/src/main.rs"
 
+[lib]
+path = "src/rs_encoding/src/lib.rs"
+
