@@ -1,0 +1,10 @@
+[package]
+name = "shamir_secret_sharing"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rs_encoding = { path = "../rs_encoding" }
+sum_check_protocol = { path = "../sum_check_protocol" }
+rand= "0.8.4"
+Lagrange_Interpolation = { path = "../Lagrange_Interpolation" }

@@ -1,5 +1,5 @@
 use rand::Rng;
-use crate::utils::is_prime;
+use crate::utils::{is_prime, extended_gcd};
 use std::{fmt::Display, u64};
 #[derive(Debug,Clone, Copy )]
 pub struct FiniteField{
@@ -20,7 +20,7 @@ pub fn generate_random_numbers_with_modulus(n: u64, modulus: u64) -> Vec<u64> {
     for _ in 0..n {
         numbers.push(rng.random::<u64>() % modulus);
     }
-    numbers
+    numbers 
 }
 impl FiniteField {
     pub fn new(value: u64, modulus: u64) -> FiniteField {
@@ -29,7 +29,10 @@ impl FiniteField {
     pub fn add(&self, other: &FiniteField) -> FiniteField {
         return FiniteField::new((self.value + other.value) % self.modulus, self.modulus);
     }
-    fn sub(&self, other: &FiniteField) -> FiniteField {
+    pub fn sub(&self, other: &FiniteField) -> FiniteField {
+        if (self.value<other.value){
+            return FiniteField::new((self.modulus - other.value + self.value) % self.modulus, self.modulus);
+        }
         return FiniteField::new((self.value - other.value) % self.modulus, self.modulus);
     }
     pub fn mul(&self, other: &FiniteField) -> FiniteField {
@@ -47,8 +50,26 @@ impl FiniteField {
             return FiniteField::new(u64::MAX,self.modulus);
         }
     }
-    fn div(&self, other: &FiniteField) -> FiniteField {
-        return FiniteField::new((self.value / other.value) % self.modulus, self.modulus);
+    fn mod_inverse(&self, a: u64) -> Option<u64> {
+        let (gcd, x, _) = extended_gcd(a as i128, self.modulus as i128);
+        if gcd != 1 {
+            return None;  // Inverse doesn't exist if gcd != 1
+        }
+        // Make sure the result is positive and within the field
+        Some(((x % self.modulus as i128 + self.modulus as i128) % self.modulus as i128) as u64)
+    }
+    
+    pub fn div(&self, other: &FiniteField) -> Option<FiniteField> {
+        if other.value == 0 {
+            return None; // Cannot divide by zero
+        }
+        match self.mod_inverse(other.value) {
+            Some(inv) => {
+                let result = (self.value as u128 * inv as u128) % (self.modulus as u128);
+                Some(FiniteField::new(result as u64, self.modulus))
+            },
+            None => None
+        }
     }
     pub fn pow(self , n : u64)->FiniteField {
         let mut other=self;
@@ -73,6 +94,9 @@ impl FiniteField {
             vector_field.push(FiniteField::new(i, modulus));
         }
         return vector_field;
+    }
+    pub fn modulus (&self)->u64{
+        return self.modulus; 
     }
 }
 

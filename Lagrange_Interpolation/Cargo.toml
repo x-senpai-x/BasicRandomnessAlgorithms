@@ -1,0 +1,9 @@
+[package]
+name = "Lagrange_Interpolation"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rs_encoding = { path = "../rs_encoding" }
+sum_check_protocol = { path = "../sum_check_protocol" }
+
