@@ -50,7 +50,7 @@ impl FiniteField {
             return FiniteField::new(u64::MAX,self.modulus);
         }
     }
-    fn mod_inverse(&self, a: u64) -> Option<u64> {
+    pub fn mod_inverse(&self, a: u64) -> Option<u64> {
         let (gcd, x, _) = extended_gcd(a as i128, self.modulus as i128);
         if gcd != 1 {
             return None;  // Inverse doesn't exist if gcd != 1
@@ -58,7 +58,13 @@ impl FiniteField {
         // Make sure the result is positive and within the field
         Some(((x % self.modulus as i128 + self.modulus as i128) % self.modulus as i128) as u64)
     }
-    
+    pub fn inverse(&self)->Option<FiniteField>{
+        if self.value ==0 {
+            return None;
+        }
+        let one=FiniteField::new(1, self.modulus);
+        return one.div(self);
+    }
     pub fn div(&self, other: &FiniteField) -> Option<FiniteField> {
         if other.value == 0 {
             return None; // Cannot divide by zero
@@ -73,6 +79,9 @@ impl FiniteField {
     }
     pub fn pow(self , n : u64)->FiniteField {
         let mut other=self;
+        if (n==0){
+            return FiniteField::new(1,self.modulus);
+        }
         for _ in 0..n-1 { 
             other=other.mul(&self);
         }
@@ -95,9 +104,30 @@ impl FiniteField {
         }
         return vector_field;
     }
+    pub fn generate_vector_with_fixed_modulus(n:u64,modulus:u64 )->Vec<FiniteField>{
+        let values : Vec<u64>=generate_random_numbers_with_modulus(n, modulus);
+        let mut vector_field:Vec<FiniteField>=Vec::with_capacity(n as usize);
+        for i in values {
+            vector_field.push(FiniteField::new(i, modulus));
+        }
+        return vector_field;
+    }
     pub fn modulus (&self)->u64{
         return self.modulus; 
     }
+    pub fn boolean_hypercube_ff(n: usize, modulus: u64) -> Vec<Vec<FiniteField>> {
+        let mut cube = Vec::new();
+        for i in 0..(1 << n) {
+            let mut point = Vec::with_capacity(n);
+            for j in 0..n {
+                let bit = ((i >> (n - 1 - j)) & 1) as u64;
+                point.push(FiniteField::new(bit, modulus));
+            }
+            cube.push(point);
+        }
+        cube
+    }
+
 }
 
 impl Display for FiniteField {

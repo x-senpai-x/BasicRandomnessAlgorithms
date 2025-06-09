@@ -3,6 +3,13 @@
 version = 4
 
 [[package]]
+name = "Lagrange_Interpolation"
+version = "0.1.0"
+dependencies = [
+ "rs_encoding",
+]
+
+[[package]]
 name = "bitflags"
 version = "2.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -113,6 +120,7 @@ dependencies = [
 name = "sum_check_protocol"
 version = "0.1.0"
 dependencies = [
+ "Lagrange_Interpolation",
  "rs_encoding",
 ]
 

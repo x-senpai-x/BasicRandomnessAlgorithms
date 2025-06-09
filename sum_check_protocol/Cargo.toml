@@ -5,3 +5,4 @@ edition = "2021"
 
 [dependencies]
 rs_encoding = { path = "../rs_encoding" }
+Lagrange_Interpolation={path = "../Lagrange_Interpolation"}

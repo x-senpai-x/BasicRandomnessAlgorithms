@@ -3,9 +3,10 @@
 version = 4
 
 [[package]]
-name = "Lagrange_Interpolation"
+name = "RSA"
 version = "0.1.0"
 dependencies = [
+ "rand",
  "rs_encoding",
 ]
 
