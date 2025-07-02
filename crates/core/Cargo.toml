@@ -1,0 +1,18 @@
+[package]
+name = "crypto-core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description = "Core cryptographic primitives and utilities"
+license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+rand.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+
+[dev-dependencies]
+criterion = "0.5" 

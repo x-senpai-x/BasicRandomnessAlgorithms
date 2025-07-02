@@ -1,3 +1,32 @@
+[workspace]
+members = [
+    "crates/core",
+    "crates/field",
+    "crates/polynomial",
+    "crates/fft",
+    "crates/sum-check",
+    "crates/multilinear",
+    "crates/low-degree-test",
+    "crates/frievalds",
+    "crates/shamir",
+    "crates/rsa",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Utsav <sharmautsav0531@gmail.com>"]
+description = "Cryptographic algorithms implementation in Rust"
+license = "MIT"
+repository = "https://github.com/yourusername/basic-randomness-algorithms"
+keywords = ["cryptography", "zero-knowledge", "proofs", "algorithms"]
+categories = ["cryptography", "algorithms"]
+
+[workspace.dependencies]
+rand = "0.9.1"
+thiserror = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+
 [package]
 name = "basic-randomness-algorithms"
 version = "0.1.0"
@@ -8,4 +37,7 @@ edition = "2021"
 [[bin]]
 name = "rs_encoding"
 path = "rs_encoding/src/main.rs"
+
+[lib]
+path = "src/rs_encoding/src/lib.rs"
 

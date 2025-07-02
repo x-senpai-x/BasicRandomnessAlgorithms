@@ -1,0 +1,19 @@
+[package]
+name = "crypto-field"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description = "Finite field arithmetic for cryptographic operations"
+license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+crypto-core = { path = "../core" }
+rand.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+
+[dev-dependencies]
+criterion = "0.5" 
