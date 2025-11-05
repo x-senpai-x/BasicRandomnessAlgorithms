@@ -8,6 +8,16 @@ use crypto_core::prelude::*;
 // use crypto_core::{CryptoError, CryptoResult,generate_random_prime};
 use rand::Rng;
 
+/// Prime field modulus for the Goldilocks field
+///
+/// Goldilocks is a 64-bit prime field commonly used in STARK proof systems
+/// (e.g., Plonky2, Polygon Miden). It has excellent arithmetic properties:
+/// - p = 2^64 - 2^32 + 1
+/// - Value: 18446744069414584321
+/// - Fits perfectly in a u64
+/// - Has a large multiplicative subgroup of order 2^32
+pub const GOLDILOCKS_FIELD_MODULUS: u64 = 18446744069414584321;
+
 /// Represents an element in a finite field of prime order.
 /// 
 /// The field is defined by a prime modulus p, and all arithmetic
@@ -98,7 +108,7 @@ impl FiniteField {
                 "Cannot subtract elements from different fields".to_string()
             ));
         }
-        
+
         let diff = if self.value >= other.value {
             self.value - other.value
         } else {
@@ -223,7 +233,7 @@ impl FiniteField {
     /// A random field element
     pub fn random(modulus: u64) -> CryptoResult<Self> {
         let mut rng = rand::rng();
-        let value = rng.random_range(0..modulus);
+        let value = rng.random_range(1..modulus);
         Self::new(value, modulus)
     }
     
@@ -280,6 +290,7 @@ impl FiniteField {
     pub fn multiplicative_group(&self) -> Vec<Self> {
         (1..self.modulus).map(|i| Self::new(i, self.modulus).unwrap()).collect()
     }
+
     
     /// Find a generator of a multiplicative subgroup of given order.
     /// 
@@ -292,30 +303,30 @@ impl FiniteField {
         if (self.modulus - 1) % order != 0 {
             return None;
         }
-        
+    
+        let cofactor = (self.modulus - 1) / order;
         let factors = crypto_core::prime_factors(order);
-        
+    
         for gen in 2..self.modulus {
-            let generator = Self::new(gen, self.modulus).unwrap();
-            if generator.pow(order).unwrap().value != 1 {
-                continue;
-            }
-            
+            let candidate = Self::new(gen, self.modulus).unwrap();
+            let g = candidate.pow(cofactor).unwrap(); // potential element of order `order`
+    
             let mut is_generator = true;
-            for &factor in &factors {
-                if generator.pow(order / factor).unwrap().value == 1 {
+            for &q in &factors {
+                if g.pow(order / q).unwrap().value == 1 {
                     is_generator = false;
                     break;
                 }
             }
-            
+    
             if is_generator {
-                return Some(generator);
+                return Some(g); // g has exact order `order`
             }
         }
-        
+    
         None
     }
+    
     
     /// Generate a multiplicative subgroup of given order.
     /// 

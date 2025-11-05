@@ -1,0 +1,9 @@
+[package]
+name = "proof"
+
+version.workspace = true
+
+[dependencies]
+
+serde.workspace = true
+tiny-keccak="0.10"

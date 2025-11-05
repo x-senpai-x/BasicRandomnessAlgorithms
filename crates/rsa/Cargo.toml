@@ -1,0 +1,20 @@
+[package]
+name = "crypto-rsa"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description = "RSA encryption and signature implementation"
+license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+crypto-core = { path = "../core" }
+crypto-field = { path = "../field" }
+rand.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+
+[dev-dependencies]
+criterion = "0.5" 

@@ -1,0 +1,15 @@
+[package]
+name = "commitments"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+crypto-field = { path = "../field" }
+crypto-core = { path = "../core" }
+rand.workspace = true

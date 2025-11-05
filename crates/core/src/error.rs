@@ -44,6 +44,13 @@ pub enum CryptoError {
     /// Random number generation error
     #[error("Random number generation error: {0}")]
     RandomError(String),
+
+    /// Not Prime 
+    #[error("{0} is not prime")]
+    NotPrime(u64),
+    //Not found
+    #[error("Generator Not Found")]
+    NotFound(String),
 }
 
 /// Result type for cryptographic operations.

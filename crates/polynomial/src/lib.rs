@@ -10,11 +10,11 @@ pub mod interpolation;
 
 pub use univariate::Polynomial;
 pub use multivariate::MultiVariatePolynomial;
-pub use interpolation::{Point, interpolate_monomial_basis, evaluate_polynomial};
+pub use interpolation::{Point, interpolate_monomial_basis, evaluate_polynomial, generate_delta};
 
 /// Re-export commonly used types
 pub mod prelude {
     pub use super::univariate::Polynomial;
     pub use super::multivariate::MultiVariatePolynomial;
-    pub use super::interpolation::{Point, interpolate_monomial_basis, evaluate_polynomial};
+    pub use super::interpolation::{Point, interpolate_monomial_basis, evaluate_polynomial, generate_delta};
 } 

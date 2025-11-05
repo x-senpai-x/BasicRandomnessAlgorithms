@@ -1,0 +1,21 @@
+[package]
+name = "crypto-shamir"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description = "Shamir secret sharing implementation for secure secret distribution"
+license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+crypto-core = { path = "../core" }
+crypto-field = { path = "../field" }
+crypto-polynomial = { path = "../polynomial" }
+rand.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+
+[dev-dependencies]
+criterion = "0.5" 

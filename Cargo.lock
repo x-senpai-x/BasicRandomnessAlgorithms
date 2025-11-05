@@ -32,6 +32,20 @@ checksum = "c08606f8c3cbf4ce6ec8e28fb0014a2c086708fe954eaa885384a6165172e7e8"
 [[package]]
 name = "basic-randomness-algorithms"
 version = "0.1.0"
+dependencies = [
+ "commitments",
+ "crypto-core",
+ "crypto-fft",
+ "crypto-field",
+ "crypto-frievalds",
+ "crypto-low-degree-test",
+ "crypto-multilinear",
+ "crypto-polynomial",
+ "crypto-rsa",
+ "crypto-shamir",
+ "crypto-sum-check",
+ "rand",
+]
 
 [[package]]
 name = "bitflags"
@@ -108,6 +122,15 @@ name = "clap_lex"
 version = "0.7.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b94f61472cee1439c0b966b47e3aca9ae07e45d070759512cd390ea2bebc6675"
+
+[[package]]
+name = "commitments"
+version = "0.1.0"
+dependencies = [
+ "crypto-core",
+ "crypto-field",
+ "rand",
+]
 
 [[package]]
 name = "criterion"

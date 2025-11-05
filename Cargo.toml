@@ -10,6 +10,7 @@ members = [
     "crates/frievalds",
     "crates/shamir",
     "crates/rsa",
+    "crates/commitments",
 ]
 
 [workspace.package]
@@ -33,11 +34,15 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-
-[[bin]]
-name = "rs_encoding"
-path = "rs_encoding/src/main.rs"
-
-[lib]
-path = "src/rs_encoding/src/lib.rs"
-
+crypto-core = { path = "crates/core" }
+crypto-field = { path = "crates/field" }
+crypto-polynomial = { path = "crates/polynomial" }
+crypto-fft = { path = "crates/fft" }
+crypto-sum-check = { path = "crates/sum-check" }
+crypto-multilinear = { path = "crates/multilinear" }
+crypto-low-degree-test = { path = "crates/low-degree-test" }
+crypto-frievalds = { path = "crates/frievalds" }
+crypto-shamir = { path = "crates/shamir" }
+crypto-rsa = { path = "crates/rsa" }
+commitments = { path = "crates/commitments" }
+rand = { workspace = true }
